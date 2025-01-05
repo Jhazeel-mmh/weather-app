@@ -30,10 +30,17 @@ getWeather("oaxaca")
   .catch((r) => console.log(r));
 
 function displayInformation(obj) {
-  const container = $('.weather-container')
-  const { currentConditions, resolvedAddress, timezone, latitude, longitude, days } = obj
+  const container = $(".weather-container");
+  const {
+    currentConditions,
+    resolvedAddress,
+    timezone,
+    latitude,
+    longitude,
+    days,
+  } = obj;
   const day = days[0].datetime;
-  
+
   container.innerHTML = `
         <p class="city">${resolvedAddress}</p>
         <p class="date">${day}</p>
@@ -44,5 +51,45 @@ function displayInformation(obj) {
         <p class="timezone">${timezone}</p>
         <p class="latitude">${latitude}</p>
         <p class="longitude">${longitude}</p>
-  `
+  `;
 }
+
+function getFormValue() {
+  const form = $("form");
+  const input = $("#locationValue");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    if (form.checkValidity()) {
+      const value = input.value
+      input.value = ''
+      return value;
+    }
+  });
+}
+
+function checkInputValidity() {
+  const input = $("#locationValue");
+
+  input.addEventListener("input", (e) => {
+    input.setCustomValidity("");
+
+    if (input.validity.valueMissing) {
+      input.setCustomValidity("You should enter yor city");
+    }
+
+    if (input.validity.tooShort || input.validity.tooLong) {
+      input.setCustomValidity(
+        "The shortest country name is 4 characters and the longest is 22 chars",
+      );
+    }
+
+    input.reportValidity();
+  });
+}
+
+
+checkInputValidity()
+
+getFormValue();
