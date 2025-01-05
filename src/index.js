@@ -94,7 +94,24 @@ function checkInputValidity() {
   });
 }
 
+function setColorsAndGif(div, temperature, clime) {
+  if (temperature >= 30) {
+    div.classList.add("heat");
+  }
+  if (temperature >= 15 && temperature < 30) {
+    div.classList.add("medium");
+  }
+  if (temperature < 15) {
+    div.classList.add("cold");
+  }
+
+  getGiphy("clime" + clime)
+    .then((r) => {
+      const img = $(".img-weather");
+      img.url = r;
+    })
+    .catch((error) => console.log(error));
+}
 
 checkInputValidity();
 
-getFormValue();
