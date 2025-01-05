@@ -15,7 +15,7 @@ const GIPHY_KEY = "YphoJo3ndyPiIjXnu0Hbb0Ua0DxzXHgM";
 async function getWeather(location) {
   try {
     const response = await fetch(
-      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/today?unitGroup=us&key=${WEATHER_KEY}&contentType=json`,
+      `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/today?unitGroup=metric&key=${WEATHER_KEY}&contentType=json`,
     );
     return response.json();
   } catch (error) {
@@ -93,6 +93,7 @@ function checkInputValidity() {
     input.reportValidity();
   });
 }
+
 
 checkInputValidity();
 
