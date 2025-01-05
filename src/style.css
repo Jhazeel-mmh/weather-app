@@ -1,3 +1,4 @@
-body {
-    background-color: black;
+.row {
+    display: flex;
+    gap: 1rem;
 }
