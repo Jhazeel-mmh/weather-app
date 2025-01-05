@@ -10,6 +10,7 @@ const c$ = (el, cls, content) => {
 };
 
 const WEATHER_KEY = "FULVUHH7Y75BCMEVWAYCYS8MU";
+const GIPHY_KEY = "YphoJo3ndyPiIjXnu0Hbb0Ua0DxzXHgM";
 
 async function getWeather(location) {
   try {
@@ -22,12 +23,16 @@ async function getWeather(location) {
   }
 }
 
-getWeather("oaxaca")
-  .then((r) => {
-    console.log(r);
-    displayInformation(r);
-  })
-  .catch((r) => console.log(r));
+async function getGiphy(weatherLooksLike) {
+  const response = await fetch(
+    `https://api.giphy.com/v1/gifs/translate?api_key=${GIPHY_KEY}&s=${weatherLooksLike}`,
+    {
+      mode: "cors",
+    },
+  );
+  const url = await response.json().data.images.original.url;
+  return url;
+}
 
 function displayInformation(obj) {
   const container = $(".weather-container");
@@ -62,8 +67,8 @@ function getFormValue() {
     e.preventDefault();
 
     if (form.checkValidity()) {
-      const value = input.value
-      input.value = ''
+      const value = input.value;
+      input.value = "";
       return value;
     }
   });
@@ -89,7 +94,6 @@ function checkInputValidity() {
   });
 }
 
-
-checkInputValidity()
+checkInputValidity();
 
 getFormValue();
