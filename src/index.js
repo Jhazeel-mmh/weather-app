@@ -30,8 +30,8 @@ async function getGiphy(weatherLooksLike) {
       mode: "cors",
     },
   );
-  const url = await response.json().data.images.original.url;
-  return url;
+  const url = await response.json();
+  return url.data.images.original.url;
 }
 
 function displayInformation(obj) {
@@ -59,21 +59,6 @@ function displayInformation(obj) {
   `;
 }
 
-function getFormValue() {
-  const form = $("form");
-  const input = $("#locationValue");
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    if (form.checkValidity()) {
-      const value = input.value;
-      input.value = "";
-      return value;
-    }
-  });
-}
-
 function checkInputValidity() {
   const input = $("#locationValue");
 
@@ -95,6 +80,7 @@ function checkInputValidity() {
 }
 
 function setColorsAndGif(div, temperature, clime) {
+  div.classList.remove("heat", "medium", "cold");
   if (temperature >= 30) {
     div.classList.add("heat");
   }
@@ -105,13 +91,40 @@ function setColorsAndGif(div, temperature, clime) {
     div.classList.add("cold");
   }
 
-  getGiphy("clime" + clime)
+  getGiphy("Clima" + clime)
     .then((r) => {
-      const img = $(".img-weather");
-      img.url = r;
+      const parentNode = $(".main-content");
+      let img;
+      img = $(".weather-img");
+      if (!img) {
+        img = c$("img", "weather-img", "");
+      }
+
+      img.src = r;
+      parentNode.appendChild(img);
     })
     .catch((error) => console.log(error));
 }
 
-checkInputValidity();
+function App() {
+  const form = $("#weather-form");
+  const input = $("#locationValue");
+  let value;
 
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (form.checkValidity()) {
+      value = input.value;
+      input.value = "";
+    }
+    const weatherResponse = await getWeather(value);
+    displayInformation(weatherResponse);
+    const body = $(".main-content");
+    const temp = weatherResponse.currentConditions.temp;
+    const clime = weatherResponse.currentConditions.conditions;
+    setColorsAndGif(body, temp, clime);
+  });
+}
+
+App();

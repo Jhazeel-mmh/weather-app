@@ -1,23 +1,105 @@
-.row {
+:root {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --clr-tmp-heat: linear-gradient(#FF5733, #FF8C00, #FFD700);
+    --clr-tmp-med: linear-gradient(to bottom, #80E0A7, #40C4FF, #0095B6);
+    --clr-tmp-cold: linear-gradient(to bottom, #3B4C76, #1F2A44, #5A2D9A);
+    --fs-500: 1rem;
+    --fs-700: 2.5rem;
+    --fw-normal: 500;
+    --fw-bold: 700;
+}
+
+.heat {
+    background: var(--clr-tmp-heat);
+}
+
+.medium {
+    background: var(--clr-tmp-med);
+}
+
+.cold {
+    background: var(--clr-tmp-cold);
+}
+
+body {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+
+#weather-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 10vh;
+    background-color: #1F2A44;
+    position: relative;
+}
+
+#weather-form::before {
+    content: "Weather App";
+    color: #fff;
+    font-size: var(--fs-700);
+    font-weight: var(--fw-bold);
+}
+
+.wrapper {
     display: flex;
     gap: 1rem;
 }
 
-:root {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    --clr-tmp-heat: linear-gradient(to bottom, #FF5733, #FF8C00, #FFD700);
-    --clr-tmp-med: linear-gradient(to bottom, #80E0A7, #40C4FF, #0095B6);
-    --clr-tmp-cold: linear-gradient(to bottom, #3B4C76, #1F2A44, #5A2D9A);
+#locationValue {
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.2rem;    
 }
 
-.heat {
-    background-color: var(--clr-tmp-heat);
+#locationValue:focus {
+    outline: none;
 }
 
-.medium {
-    background-color: var(--clr-tmp-med);
+input[type=submit]{
+    pad: 0.2rem 0.4rem;
+    color: #fff;
+    background-color: #0e172c;
+    border-radius: 0.2rem;
+    border: none;
 }
 
-.cold {
-    background-color: var(--clr-tmp-cold);
+.main-content {
+    display: flex;
+    flex-flow: column;
+}
+
+.city {
+    font-weight: var(--fw-bold);
+    text-align: center;
+}
+
+.weather-img {
+    width: 300px;
+    height: 300px;
+}
+
+.main-content {
+    border-radius: 0.2rem;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    width: 50vw;
+    height: 70vh;
+}
+
+a{
+    color: #1F2A44;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0348e7;
+    text-decoration: underline;
 }
